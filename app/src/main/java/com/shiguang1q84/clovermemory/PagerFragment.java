@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,8 @@ import com.shiguang1q84.clovermemory.view.MyPagerViewAdapter;
 public class PagerFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private ViewFlipper flipper;
     private ViewPager2 viewpager;
+    private int position;
 
     public PagerFragment() {
         // Required empty public constructor
@@ -58,6 +59,7 @@ public class PagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        position = getArguments().getInt("position",0);
     }
 
     @Override
@@ -74,8 +76,18 @@ public class PagerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewpager = view.findViewById(R.id.pager);
         DataList dataList = new DataList(getContext());
-        //MyPagerViewAdapter pagerViewAdapter = new MyPagerViewAdapter();
-        viewpager.setAdapter(new MyPagerViewAdapter(dataList.getDatalist(),null));
+        MyPagerViewAdapter pagerViewAdapter = new MyPagerViewAdapter(this,dataList);
+        viewpager.setAdapter(pagerViewAdapter);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("PAGERFRAGMENT", "position=" + position);
+        //
+        //pagerViewAdapter.createFragment(position);
+        viewpager.setCurrentItem(position,false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

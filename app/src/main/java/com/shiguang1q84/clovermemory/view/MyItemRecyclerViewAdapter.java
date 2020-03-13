@@ -51,7 +51,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
     }
 
     @Override
-    public void onBindViewHolder(final RemViewHolder holder, int position) {
+    public void onBindViewHolder(final RemViewHolder holder, final int position) {
         //holder.mItem = mValues.get(position);
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(holder.mItem.getHead());
@@ -61,7 +61,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.dosomething();
+                    mListener.dosomething(position);
                 }
             }
         });

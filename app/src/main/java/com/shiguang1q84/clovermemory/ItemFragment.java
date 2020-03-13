@@ -68,11 +68,13 @@ public class ItemFragment extends Fragment {
         mListener = new OnListFragmentInteractionListener() {
 
             @Override
-            public void dosomething() {
-                Log.e("YSY", "Do some thing");
+            public void dosomething(int position) {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 Fragment fragment = new PagerFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("position",position);
+                fragment.setArguments(bundle);
                 transaction.addToBackStack(null);
                 transaction.replace(R.id.mainfragment,fragment);
                 transaction.commit();
@@ -125,6 +127,6 @@ public class ItemFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         //void onListFragmentInteraction(DataInterface item);
-        void dosomething();
+        void dosomething(int position);
     }
 }

@@ -48,6 +48,12 @@ public class DataList {
         }
     }
 
+    public DataItem getDataItem(int position){
+        return datalist.get(position);
+    }
+    public int getLength(){
+        return datalist.size();
+    }
     public  List getDatalist() {
         return datalist;
     }
