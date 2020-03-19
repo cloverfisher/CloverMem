@@ -19,6 +19,7 @@ public class RemViewHolder extends RecyclerView.ViewHolder{
         mView = view;
         mIdView = (TextView) view.findViewById(R.id.item_head);
         mContentView = (TextView) view.findViewById(R.id.item_text);
+       // mIdView.setVisibility(View.INVISIBLE);
     }
 
     @Override

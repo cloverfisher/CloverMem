@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ViewFlipper;
 
 import com.shiguang1q84.clovermemory.data.DataList;
@@ -31,7 +32,7 @@ public class PagerFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private ViewPager2 viewpager;
     private int position;
-
+    MyPagerViewAdapter pagerViewAdapter;
     public PagerFragment() {
         // Required empty public constructor
     }
@@ -76,7 +77,7 @@ public class PagerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewpager = view.findViewById(R.id.pager);
         DataList dataList = new DataList(getContext());
-        MyPagerViewAdapter pagerViewAdapter = new MyPagerViewAdapter(this,dataList);
+        pagerViewAdapter = new MyPagerViewAdapter(this,dataList);
         viewpager.setAdapter(pagerViewAdapter);
 
     }
@@ -88,6 +89,15 @@ public class PagerFragment extends Fragment {
         //
         //pagerViewAdapter.createFragment(position);
         viewpager.setCurrentItem(position,false);
+        Button button = getActivity().findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pagerViewAdapter.setVisiable(!pagerViewAdapter.isVisiable());
+                pagerViewAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -113,6 +123,8 @@ public class PagerFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

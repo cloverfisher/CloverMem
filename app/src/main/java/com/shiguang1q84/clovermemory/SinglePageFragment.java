@@ -27,10 +27,16 @@ public class SinglePageFragment extends Fragment {
         Bundle args = getArguments();
         String headstr = args.getString("head");
         String contextstr = args.getString("context");
+        boolean isVisable = args.getBoolean("isvisable");
         TextView head = view.findViewById(R.id.item_head);
         TextView context = view.findViewById(R.id.item_text);
         head.setText(headstr);
         context.setText(contextstr);
+        if(isVisable) {
+            context.setVisibility(View.VISIBLE);
+        }else{
+            context.setVisibility(View.INVISIBLE);
+        }
         //super.onViewCreated(view, savedInstanceState);
 
     }

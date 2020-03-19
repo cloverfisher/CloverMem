@@ -21,26 +21,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
 
     private  List<DataInterface> mValues;
     private  OnListFragmentInteractionListener mListener;
- //   private MyItemRecyclerViewAdapter myItemRecyclerViewAdapter;
+    private boolean isVisable=true;
 
     public MyItemRecyclerViewAdapter(List<DataInterface> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
 
-//    public MyItemRecyclerViewAdapter newInstance(List<DataInterface> items, OnListFragmentInteractionListener listener){
-//        if(myItemRecyclerViewAdapter == null){
-//            this.mValues = items;
-//            this.mListener = listener;
-//        }
-//        return myItemRecyclerViewAdapter;
-//    }
-
-//    private MyItemRecyclerViewAdapter(List<DataInterface> items, OnListFragmentInteractionListener listener) {
-//
-//        mValues = items;
-//        mListener = listener;
-//    }
 
     @Override
     public RemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,7 +43,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(holder.mItem.getHead());
         holder.mContentView.setText(holder.mItem.getContext());
-
+        if(isVisable){
+            holder.mContentView.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.mContentView.setVisibility(View.INVISIBLE);
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +59,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
         });
     }
 
+    public void setIdVisiable(boolean isVisiable){
+        this.isVisable = isVisiable;
+    }
+    public boolean getIdVisiable(){
+        return this.isVisable;
+    }
     @Override
     public int getItemCount() {
         return mValues.size();

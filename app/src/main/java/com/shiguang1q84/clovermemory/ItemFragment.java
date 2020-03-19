@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.shiguang1q84.clovermemory.data.DataList;
 import com.shiguang1q84.clovermemory.view.MyItemRecyclerViewAdapter;
@@ -29,7 +30,7 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 5;
+    private int mColumnCount = 3;
     private OnListFragmentInteractionListener mListener;
     private MyItemRecyclerViewAdapter myItemRecyclerViewAdapter;
 
@@ -76,7 +77,7 @@ public class ItemFragment extends Fragment {
                 bundle.putInt("position",position);
                 fragment.setArguments(bundle);
                 transaction.addToBackStack(null);
-                transaction.replace(R.id.mainfragment,fragment);
+                transaction.replace(R.id.memfragment,fragment);
                 transaction.commit();
             }
         };
@@ -107,6 +108,20 @@ public class ItemFragment extends Fragment {
 //                    + " must implement OnListFragmentInteractionListener");
 //        }
 //    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Button button = getActivity().findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myItemRecyclerViewAdapter.setIdVisiable(!myItemRecyclerViewAdapter.getIdVisiable());
+                myItemRecyclerViewAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 
     @Override
     public void onDetach() {

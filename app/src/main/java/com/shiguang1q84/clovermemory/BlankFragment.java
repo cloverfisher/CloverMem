@@ -1,6 +1,7 @@
 package com.shiguang1q84.clovermemory;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -85,11 +86,15 @@ public class BlankFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new ItemFragment();
-                //fragment = new PagerFragment();
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.mainfragment,fragment);
-                fragmentTransaction.commit();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), MemActivity.class);
+                startActivity(intent);
+
+//                fragment = new ItemFragment();
+//                //fragment = new PagerFragment();
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.replace(R.id.mainfragment,fragment);
+//                fragmentTransaction.commit();
             }
         });
     }
