@@ -1,7 +1,6 @@
 package com.shiguang1q84.clovermemory;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -9,11 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.shiguang1q84.clovermemory.view.MemViewAdapter;
+
 public class MemActivity extends AppCompatActivity {
 
     FragmentManager fm ;
     FragmentTransaction ft;
-    Fragment fragment = new ItemFragment();
+    MemFragment fragment = new ItemFragment();
     Button button ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,20 @@ public class MemActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
+        button.setOnClickListener(listener);
     }
+
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            MemFragment currentFragment = (MemFragment)fm.findFragmentById(R.id.memfragment);
+            MemViewAdapter memViewAdapter = currentFragment.getMyAdapter();
+            boolean tempVisiable = currentFragment.isContentVisable();
+            currentFragment.setContentVisable(!tempVisiable);
+            memViewAdapter.setVisiable(!tempVisiable);//(!myItemRecyclerViewAdapter.getIdVisiable());
+            memViewAdapter.notifyDataSetChanged();
+        }
+    };
+
+
 }

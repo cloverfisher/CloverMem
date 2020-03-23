@@ -12,10 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ViewFlipper;
 
 import com.shiguang1q84.clovermemory.data.DataList;
+import com.shiguang1q84.clovermemory.view.MemViewAdapter;
 import com.shiguang1q84.clovermemory.view.MyPagerViewAdapter;
 
 
@@ -27,7 +26,7 @@ import com.shiguang1q84.clovermemory.view.MyPagerViewAdapter;
  * Use the {@link PagerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PagerFragment extends Fragment {
+public class PagerFragment extends MemFragment {
 
     private OnFragmentInteractionListener mListener;
     private ViewPager2 viewpager;
@@ -86,18 +85,10 @@ public class PagerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.e("PAGERFRAGMENT", "position=" + position);
-        //
-        //pagerViewAdapter.createFragment(position);
-        viewpager.setCurrentItem(position,false);
-        Button button = getActivity().findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pagerViewAdapter.setVisiable(!pagerViewAdapter.isVisiable());
-                pagerViewAdapter.notifyDataSetChanged();
-            }
-        });
 
+        viewpager.setCurrentItem(position,false);
+        pagerViewAdapter.setVisiable(super.isContentVisable());
+        pagerViewAdapter.notifyDataSetChanged();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,23 +98,16 @@ public class PagerFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
+    @Override
+    protected MemViewAdapter getMyAdapter() {
+        return pagerViewAdapter;
+    }
 
 
     /**

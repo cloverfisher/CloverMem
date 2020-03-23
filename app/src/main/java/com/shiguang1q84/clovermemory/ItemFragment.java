@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.shiguang1q84.clovermemory.data.DataList;
+import com.shiguang1q84.clovermemory.view.MemViewAdapter;
 import com.shiguang1q84.clovermemory.view.MyItemRecyclerViewAdapter;
 
 /**
@@ -25,12 +24,10 @@ import com.shiguang1q84.clovermemory.view.MyItemRecyclerViewAdapter;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ItemFragment extends Fragment {
+public class ItemFragment extends MemFragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 3;
+    private int mColumnCount = 5;
     private OnListFragmentInteractionListener mListener;
     private MyItemRecyclerViewAdapter myItemRecyclerViewAdapter;
 
@@ -41,23 +38,18 @@ public class ItemFragment extends Fragment {
     public ItemFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    // TODO: Customize parameter initialization
+//    public static ItemFragment newInstance(int columnCount) {
+//        ItemFragment fragment = new ItemFragment();
+//        Bundle args = new Bundle();
+//        args.putInt(ARG_COLUMN_COUNT, columnCount);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -92,35 +84,18 @@ public class ItemFragment extends Fragment {
             }
             DataList dataList = new DataList(getContext());
             myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(dataList.getDatalist(), mListener);
+           // myItemRecyclerViewAdapter.setVisiable(super.isContentVisable());
             recyclerView.setAdapter(myItemRecyclerViewAdapter);
         }
         return view;
     }
 
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
-//    }
-
-
     @Override
     public void onResume() {
         super.onResume();
-        Button button = getActivity().findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myItemRecyclerViewAdapter.setIdVisiable(!myItemRecyclerViewAdapter.getIdVisiable());
-                myItemRecyclerViewAdapter.notifyDataSetChanged();
-            }
-        });
+        myItemRecyclerViewAdapter.setVisiable(super.isContentVisable());
+        myItemRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -143,5 +118,9 @@ public class ItemFragment extends Fragment {
         // TODO: Update argument type and name
         //void onListFragmentInteraction(DataInterface item);
         void dosomething(int position);
+    }
+
+    public MemViewAdapter getMyAdapter(){
+        return  myItemRecyclerViewAdapter;
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolder> {
+public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolder> implements MemViewAdapter {
 
     private  List<DataInterface> mValues;
     private  OnListFragmentInteractionListener mListener;
@@ -59,9 +59,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
         });
     }
 
-    public void setIdVisiable(boolean isVisiable){
-        this.isVisable = isVisiable;
-    }
+//    public void setIdVisiable(boolean isVisiable){
+//        this.isVisable = isVisiable;
+//    }
     public boolean getIdVisiable(){
         return this.isVisable;
     }
@@ -70,4 +70,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
         return mValues.size();
     }
 
+    @Override
+    public void setVisiable(boolean isVisable) {
+        this.isVisable = isVisable;
+    }
+
+    @Override
+    public boolean isVisiable() {
+        return isVisable;
+    }
 }
