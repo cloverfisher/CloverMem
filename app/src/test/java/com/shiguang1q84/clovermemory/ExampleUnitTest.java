@@ -1,6 +1,7 @@
 package com.shiguang1q84.clovermemory;
 
 import org.junit.Test;
+import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.*;
 
@@ -14,4 +15,5 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
 }

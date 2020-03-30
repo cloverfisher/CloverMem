@@ -27,13 +27,6 @@ public class MainActivity extends AppCompatActivity {
        // fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.mainfragment,fragment);
         fragmentTransaction.commit();
-//        Button button = (Button)findViewById(R.id.button);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fragmentTransaction.commit();
-//            }
-//        });
     }
 
 

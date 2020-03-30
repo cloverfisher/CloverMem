@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -13,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shiguang1q84.clovermemory.data.DataList;
+import com.shiguang1q84.clovermemory.data.DatalistViewModel;
 import com.shiguang1q84.clovermemory.view.MemViewAdapter;
 import com.shiguang1q84.clovermemory.view.MyPagerViewAdapter;
 
@@ -75,8 +76,8 @@ public class PagerFragment extends MemFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewpager = view.findViewById(R.id.pager);
-        DataList dataList = new DataList(getContext());
-        pagerViewAdapter = new MyPagerViewAdapter(this,dataList);
+        DatalistViewModel datalistViewModel = new ViewModelProvider(this).get(DatalistViewModel.class);
+        pagerViewAdapter = new MyPagerViewAdapter(this,datalistViewModel);
         viewpager.setAdapter(pagerViewAdapter);
 
     }

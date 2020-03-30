@@ -1,5 +1,6 @@
 package com.shiguang1q84.clovermemory.view;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -8,8 +9,10 @@ import android.view.ViewGroup;
 
 import com.shiguang1q84.clovermemory.ItemFragment.OnListFragmentInteractionListener;
 import com.shiguang1q84.clovermemory.R;
-import com.shiguang1q84.clovermemory.data.DataInterface;
+import com.shiguang1q84.clovermemory.data.DataItem;
+import com.shiguang1q84.clovermemory.data.DatalistViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,15 +22,20 @@ import java.util.List;
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolder> implements MemViewAdapter {
 
-    private  List<DataInterface> mValues;
+    //private  List<DataItem> mValues;
     private  OnListFragmentInteractionListener mListener;
     private boolean isVisable=true;
+    private DatalistViewModel mValues;
 
-    public MyItemRecyclerViewAdapter(List<DataInterface> items, OnListFragmentInteractionListener listener) {
+//    public MyItemRecyclerViewAdapter(List<DataItem> items, OnListFragmentInteractionListener listener) {
+//        mValues = items;
+//        mListener = listener;
+//    }
+
+    public MyItemRecyclerViewAdapter(DatalistViewModel items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
-
 
     @Override
     public RemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,7 +48,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
     @Override
     public void onBindViewHolder(final RemViewHolder holder, final int position) {
         //holder.mItem = mValues.get(position);
-        holder.mItem = mValues.get(position);
+        List<DataItem> dataItems = mValues.getDatalist().getValue();
+
+        holder.mItem = dataItems.get(position);
         holder.mIdView.setText(holder.mItem.getHead());
         holder.mContentView.setText(holder.mItem.getContext());
         if(isVisable){
@@ -67,7 +77,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
     }
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues.getSize();
     }
 
     @Override

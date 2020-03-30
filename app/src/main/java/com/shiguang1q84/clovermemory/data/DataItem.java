@@ -1,6 +1,7 @@
 package com.shiguang1q84.clovermemory.data;
 
-public class DataItem  implements  DataInterface{
+public class DataItem{
+
 
     String head;
     String context;
@@ -12,13 +13,12 @@ public class DataItem  implements  DataInterface{
         this.context = context;
     }
 
-    @Override
     public String getHead() {
         return head;
     }
 
-    @Override
     public String getContext() {
         return context;
     }
+
 }

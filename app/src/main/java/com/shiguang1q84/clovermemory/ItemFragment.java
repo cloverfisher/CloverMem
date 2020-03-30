@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shiguang1q84.clovermemory.data.DataList;
+import com.shiguang1q84.clovermemory.data.DatalistViewModel;
 import com.shiguang1q84.clovermemory.view.MemViewAdapter;
 import com.shiguang1q84.clovermemory.view.MyItemRecyclerViewAdapter;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A fragment representing a list of Items.
@@ -38,18 +42,11 @@ public class ItemFragment extends MemFragment {
     public ItemFragment() {
     }
 
-//    // TODO: Customize parameter initialization
-//    public static ItemFragment newInstance(int columnCount) {
-//        ItemFragment fragment = new ItemFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -62,7 +59,7 @@ public class ItemFragment extends MemFragment {
 
             @Override
             public void dosomething(int position) {
-                FragmentManager fm = getFragmentManager();
+                FragmentManager fm = getParentFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 Fragment fragment = new PagerFragment();
                 Bundle bundle = new Bundle();
@@ -82,8 +79,14 @@ public class ItemFragment extends MemFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            DataList dataList = new DataList(getContext());
-            myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(dataList.getDatalist(), mListener);
+
+
+
+            String filename = "defaultdata";
+     //           InputStream is = getContext().getAssets().open(filename);
+            DatalistViewModel datalistViewModel = new ViewModelProvider(this).get(DatalistViewModel.class);//new DatalistViewModel(is);
+            myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(datalistViewModel, mListener);
+
            // myItemRecyclerViewAdapter.setVisiable(super.isContentVisable());
             recyclerView.setAdapter(myItemRecyclerViewAdapter);
         }

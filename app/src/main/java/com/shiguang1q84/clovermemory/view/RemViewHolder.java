@@ -6,13 +6,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shiguang1q84.clovermemory.R;
-import com.shiguang1q84.clovermemory.data.DataInterface;
+import com.shiguang1q84.clovermemory.data.DataItem;
 
 public class RemViewHolder extends RecyclerView.ViewHolder{
     public final View mView;
     public final TextView mIdView;
     public final TextView mContentView;
-    public DataInterface mItem;
+    public DataItem mItem;
 
     public RemViewHolder(View view) {
         super(view);

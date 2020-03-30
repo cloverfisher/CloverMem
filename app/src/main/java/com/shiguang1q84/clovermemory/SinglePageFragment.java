@@ -1,6 +1,7 @@
 package com.shiguang1q84.clovermemory;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.shiguang1q84.clovermemory.data.DataItem;
+import com.shiguang1q84.clovermemory.data.DatalistViewModel;
 
 public class SinglePageFragment extends Fragment {
 
@@ -25,19 +30,34 @@ public class SinglePageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
-        String headstr = args.getString("head");
-        String contextstr = args.getString("context");
+        final int index = args.getInt("index",0);
+        DatalistViewModel datalistViewModel = new ViewModelProvider(this).get(DatalistViewModel.class);
+        DataItem dataItem = datalistViewModel.getDatalist().getValue().get(index);
+        final String headstr = dataItem.getHead();//args.getString("head");
+        final String contentstr = dataItem.getContext();//args.getString("context");
         boolean isVisable = args.getBoolean("isvisable");
         TextView head = view.findViewById(R.id.item_head);
-        TextView context = view.findViewById(R.id.item_text);
+        TextView content = view.findViewById(R.id.item_text);
         head.setText(headstr);
-        context.setText(contextstr);
+        content.setText(contentstr);
         if(isVisable) {
-            context.setVisibility(View.VISIBLE);
+            content.setVisibility(View.VISIBLE);
         }else{
-            context.setVisibility(View.INVISIBLE);
+            content.setVisibility(View.INVISIBLE);
         }
-        //super.onViewCreated(view, savedInstanceState);
+        view.setOnLongClickListener(new View.OnLongClickListener() {
 
+            @Override
+            public boolean onLongClick(View v) {
+                DialogFragment dialogFragment = new EditMemContentDialogFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("index", index);
+//                bundle.putString("head",headstr);
+//                bundle.putString("content",contentstr);
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(getFragmentManager(),"aaa");
+                return true;
+            }
+        });
     }
 }
