@@ -107,12 +107,12 @@ public class BlankFragment extends Fragment {
 //    }
 
 //    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
+//    public void onAttach(Context content) {
+//        super.onAttach(content);
+//        if (content instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) content;
 //        } else {
-//            throw new RuntimeException(context.toString()
+//            throw new RuntimeException(content.toString()
 //                    + " must implement OnFragmentInteractionListener");
 //        }
 //    }

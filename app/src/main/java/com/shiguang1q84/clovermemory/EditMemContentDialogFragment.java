@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -43,7 +42,8 @@ public class EditMemContentDialogFragment extends DialogFragment {
                 List<DataItem> dataItems =  datalistViewModel.getDatalist().getValue();
                 String headStr = headText.getText().toString();
                 dataItems.set(index, new DataItem(headText.getText().toString(),contentText.getText().toString()));
-                datalistViewModel.getDatalist().setValue(dataItems);
+                // TODO  setValues
+                //datalistViewModel.getDatalist().setValue(dataItems);
             }
         });
         builder.setNegativeButton("CANCEL",null);
@@ -58,7 +58,7 @@ public class EditMemContentDialogFragment extends DialogFragment {
         DatalistViewModel datalistViewModel = new ViewModelProvider(getActivity()).get(DatalistViewModel.class);
         dataItem = datalistViewModel.getDatalist().getValue().get(index);
         String headstr = dataItem.getHead();//bundle.getString("head");
-        String contentstr = dataItem.getContext();//bundle.getString("content");
+        String contentstr = dataItem.getContent();//bundle.getString("content");
         headText = memview.findViewById(R.id.item_head_dialog);
         contentText = memview.findViewById(R.id.item_content_dialog);
         headText.setText(headstr);

@@ -1,6 +1,5 @@
 package com.shiguang1q84.clovermemory.view;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import com.shiguang1q84.clovermemory.R;
 import com.shiguang1q84.clovermemory.data.DataItem;
 import com.shiguang1q84.clovermemory.data.DatalistViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,10 +47,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RemViewHolde
     public void onBindViewHolder(final RemViewHolder holder, final int position) {
         //holder.mItem = mValues.get(position);
         List<DataItem> dataItems = mValues.getDatalist().getValue();
-
+        if(dataItems==null){
+            return;
+        }
         holder.mItem = dataItems.get(position);
         holder.mIdView.setText(holder.mItem.getHead());
-        holder.mContentView.setText(holder.mItem.getContext());
+        holder.mContentView.setText(holder.mItem.getContent());
         if(isVisable){
             holder.mContentView.setVisibility(View.VISIBLE);
         }

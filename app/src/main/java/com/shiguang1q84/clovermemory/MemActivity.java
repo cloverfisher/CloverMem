@@ -6,11 +6,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.shiguang1q84.clovermemory.data.AppDataBase;
 import com.shiguang1q84.clovermemory.data.DataItem;
 import com.shiguang1q84.clovermemory.data.DatalistViewModel;
 import com.shiguang1q84.clovermemory.view.MemViewAdapter;
@@ -32,13 +35,18 @@ public class MemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mem);
         datalistViewModel = new ViewModelProvider(this).get(DatalistViewModel.class);
-        String filename = "defaultdata";
-        try {
-            InputStream is = getApplicationContext().getAssets().open(filename);//new FileInputStream(filename);
-            datalistViewModel.readAsset(is);
-        }catch (IOException e){
+//        AppDataBase db = Room.databaseBuilder(getApplicationContext(),AppDataBase.class,"clovermem.db").build();
+//
+//        if(db.dataItemDao().getAll().size()==0){
+//            String filename = "defaultdata";
+//            try {
+//                InputStream is = getApplicationContext().getAssets().open(filename);//new FileInputStream(filename);
+//                datalistViewModel.readAsset(is);
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//        }
 
-        }
         final Observer<List<DataItem>> dataItemObserver = new Observer<List<DataItem>>() {
             @Override
             public void onChanged(List<DataItem> dataItems) {

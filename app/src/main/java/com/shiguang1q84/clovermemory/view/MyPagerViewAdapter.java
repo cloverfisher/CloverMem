@@ -63,7 +63,7 @@ public class MyPagerViewAdapter extends FragmentStateAdapter implements MemViewA
     public void onBindViewHolder(@NonNull FragmentViewHolder holder, int position, @NonNull List<Object> payloads) {
         TextView tempContent = holder.itemView.findViewById(R.id.item_text);
         if(tempContent != null){
-            tempContent.setText(dataList.getDatalist().getValue().get(position).getContext());
+            tempContent.setText(dataList.getDatalist().getValue().get(position).getContent());
             if(isVisiable){
                 tempContent.setVisibility(View.VISIBLE);
             }else{

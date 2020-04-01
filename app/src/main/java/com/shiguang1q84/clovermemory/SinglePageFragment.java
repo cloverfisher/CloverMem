@@ -1,7 +1,6 @@
 package com.shiguang1q84.clovermemory;
 
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,10 +29,10 @@ public class SinglePageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
         final int index = args.getInt("index",0);
-        DatalistViewModel datalistViewModel = new ViewModelProvider(this).get(DatalistViewModel.class);
+        DatalistViewModel datalistViewModel = new ViewModelProvider(getActivity()).get(DatalistViewModel.class);
         DataItem dataItem = datalistViewModel.getDatalist().getValue().get(index);
         final String headstr = dataItem.getHead();//args.getString("head");
-        final String contentstr = dataItem.getContext();//args.getString("context");
+        final String contentstr = dataItem.getContent();//args.getString("content");
         boolean isVisable = args.getBoolean("isvisable");
         TextView head = view.findViewById(R.id.item_head);
         TextView content = view.findViewById(R.id.item_text);
@@ -55,7 +53,7 @@ public class SinglePageFragment extends Fragment {
 //                bundle.putString("head",headstr);
 //                bundle.putString("content",contentstr);
                 dialogFragment.setArguments(bundle);
-                dialogFragment.show(getFragmentManager(),"aaa");
+                dialogFragment.show(getParentFragmentManager(),"aaa");
                 return true;
             }
         });

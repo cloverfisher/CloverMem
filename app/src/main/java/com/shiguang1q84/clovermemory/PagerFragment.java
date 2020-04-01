@@ -76,7 +76,7 @@ public class PagerFragment extends MemFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewpager = view.findViewById(R.id.pager);
-        DatalistViewModel datalistViewModel = new ViewModelProvider(this).get(DatalistViewModel.class);
+        DatalistViewModel datalistViewModel = new ViewModelProvider(getActivity()).get(DatalistViewModel.class);
         pagerViewAdapter = new MyPagerViewAdapter(this,datalistViewModel);
         viewpager.setAdapter(pagerViewAdapter);
 

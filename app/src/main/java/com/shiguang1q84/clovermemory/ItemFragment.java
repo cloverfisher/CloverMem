@@ -83,8 +83,8 @@ public class ItemFragment extends MemFragment {
 
 
             String filename = "defaultdata";
-     //           InputStream is = getContext().getAssets().open(filename);
-            DatalistViewModel datalistViewModel = new ViewModelProvider(this).get(DatalistViewModel.class);//new DatalistViewModel(is);
+     //           InputStream is = getContent().getAssets().open(filename);
+            DatalistViewModel datalistViewModel = new ViewModelProvider(getActivity()).get(DatalistViewModel.class);//new DatalistViewModel(is);
             myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(datalistViewModel, mListener);
 
            // myItemRecyclerViewAdapter.setVisiable(super.isContentVisable());
