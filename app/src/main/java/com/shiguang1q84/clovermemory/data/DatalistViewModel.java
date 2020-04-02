@@ -24,10 +24,22 @@ public class DatalistViewModel extends AndroidViewModel {
     private LiveData<List<DataItem>> datalist;
     //private List<DataItem> dataItems;
     private AppDataBase db;
+    private Application application;
     //TODO
     public DatalistViewModel(@NonNull Application application) {
         super(application);
+        this.application = application;
         db = Room.databaseBuilder(application.getApplicationContext(),AppDataBase.class,"mem.db").allowMainThreadQueries().build();
+        if(db.dataItemDao()==null) {
+            initDatabase();
+        }
+        DataItem tempDataItem = db.dataItemDao().getDataItemByPostion(4);
+        datalist = db.dataItemDao().getAll();
+   //     datalist.getValue().size();
+        //db.dataItemDao().insertAll(dataItems);
+    }
+
+    public void initDatabase(){
         String filename = "defaultdata";
         try {
             InputStream is = application.getApplicationContext().getAssets().open(filename);//new FileInputStream(filename);
@@ -35,10 +47,10 @@ public class DatalistViewModel extends AndroidViewModel {
         }catch (IOException e){
             e.printStackTrace();
         }
-        DataItem tempDataItem = db.dataItemDao().getDataItemByPostion(4);
-        datalist = db.dataItemDao().getAll();
-   //     datalist.getValue().size();
-        //db.dataItemDao().insertAll(dataItems);
+    }
+
+    public void updateDataItem(DataItem dataItem){
+        db.dataItemDao().updateDataItem(dataItem);
     }
 
 //    public DatalistViewModel(){
@@ -58,7 +70,13 @@ public class DatalistViewModel extends AndroidViewModel {
     }
 
     public int getSize(){
-        return 10;
+        if(datalist.getValue()!=null){
+            return datalist.getValue().size();
+        }
+        else{
+            return 0;
+        }
+        //return 10;
         //return  datalist.getValue().size();
     }
 
@@ -67,7 +85,9 @@ public class DatalistViewModel extends AndroidViewModel {
     }
 
 
-    public void readAsset(InputStream is){
+    private void readAsset(InputStream is){
+        db.clearAllTables();
+        //db.
         try {
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader bfReader = new BufferedReader(isr);
@@ -84,8 +104,8 @@ public class DatalistViewModel extends AndroidViewModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        DataItem tempItem = db.dataItemDao().getDataItemByPostion(3);
-        Log.e("viewmodel", "DateItem3:" + tempItem.getHead());
+     //   DataItem tempItem = db.dataItemDao().getDataItemByPostion(3);
+     //   Log.e("viewmodel", "DateItem3:" + tempItem.getHead());
     }
 
 //    public void readAsset(AppDataBase db){

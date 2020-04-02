@@ -10,14 +10,20 @@ public class DataItem{
 
 
     @PrimaryKey(autoGenerate = true)
-    public int position;
+    private int position;
 
     @ColumnInfo(name="head")
-    public String head;
+    private String head;
     @ColumnInfo(name="content")
-    public String content;
+    private String content;
 
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
+    public void setHead(String head) {
+        this.head = head;
+    }
 
     public DataItem(String head, String content){
         this.head = head;
@@ -30,6 +36,10 @@ public class DataItem{
 
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String contentStr){
+        this.content = contentStr;
     }
 
     public int getPosition(){return position;}

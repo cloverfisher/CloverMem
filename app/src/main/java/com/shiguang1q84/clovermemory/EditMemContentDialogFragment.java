@@ -40,8 +40,11 @@ public class EditMemContentDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 DatalistViewModel datalistViewModel = new ViewModelProvider(getActivity()).get(DatalistViewModel.class);
                 List<DataItem> dataItems =  datalistViewModel.getDatalist().getValue();
-                String headStr = headText.getText().toString();
-                dataItems.set(index, new DataItem(headText.getText().toString(),contentText.getText().toString()));
+                DataItem dataItem = dataItems.get(index);
+                dataItem.setContent(contentText.getText().toString());
+                datalistViewModel.updateDataItem(dataItem);
+//                String headStr = headText.getText().toString();
+//                dataItems.set(index, new DataItem(headText.getText().toString(),contentText.getText().toString()));
                 // TODO  setValues
                 //datalistViewModel.getDatalist().setValue(dataItems);
             }
