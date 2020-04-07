@@ -89,12 +89,15 @@ public class BlankFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), MemActivity.class);
                 startActivity(intent);
-
-//                fragment = new ItemFragment();
-//                //fragment = new PagerFragment();
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.replace(R.id.mainfragment,fragment);
-//                fragmentTransaction.commit();
+            }
+        });
+        Button buttonRemNumList = getActivity().findViewById(R.id.button2numlist);
+        buttonRemNumList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),NumPracticeActivity.class);
+                startActivity(intent);
             }
         });
     }
