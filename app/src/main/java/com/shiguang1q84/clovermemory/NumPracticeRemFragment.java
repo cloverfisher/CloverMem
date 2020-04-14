@@ -4,10 +4,13 @@ package com.shiguang1q84.clovermemory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -23,20 +26,13 @@ public class NumPracticeRemFragment extends Fragment {
 //    private String mParam2;
 
     int arraylenth=0;
+    TextView numListTextView;
+    TextView numLengthTextView;
+    Button toNumListCheckButton;
 
     public NumPracticeRemFragment() {
         // Required empty public constructor
     }
-
-//    // TODO: Rename and change types and number of parameters
-//    public static NumPracticeRemFragment newInstance(String param1, String param2) {
-//        NumPracticeRemFragment fragment = new NumPracticeRemFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,13 +45,16 @@ public class NumPracticeRemFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_num_practice_rem, container, false);
-        final TextView textView = view.findViewById(R.id.numlist);
+        numListTextView = view.findViewById(R.id.numlist);
+        numLengthTextView  = view.findViewById(R.id.numlength);
+        toNumListCheckButton = view.findViewById(R.id.button2checkfragment);
         SeekBar seekBar = view.findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 arraylenth = progress;
-                textView.setText(getRandomNumList(arraylenth));
+                numListTextView.setText(getRandomNumList(arraylenth));
+                numLengthTextView.setText(String.valueOf(progress));
             }
 
             @Override
@@ -65,6 +64,17 @@ public class NumPracticeRemFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        toNumListCheckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new NumPracticeCheckFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frag_num_practice,fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         return view;
